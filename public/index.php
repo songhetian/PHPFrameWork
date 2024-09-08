@@ -2,16 +2,14 @@
 require_once __DIR__.'/../vendor/autoload.php';
 
 use app\core\Application;
+use app\controllers\siteController;
 
-$app = new Application();
+$path = dirname(__DIR__);
 
-$app->router->get('/', function () {
-    return 'Hello World';
-}
-);
-$app->router->get('/concat', function () {
-    return 'Concat';
-}
-);
+$app = new Application($path);
+
+$app->router->get('/', [siteController::class, 'home']);
+$app->router->get('/contact', [siteController::class, 'contact']);
+$app->router->post('/contact', [siteController::class, 'handelContact']);
 
 $app->run();
